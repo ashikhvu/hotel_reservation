@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% load static %}
+{% load my_extras %}
+
+{% comment %} {% load my_extras %} {% endcomment %}
+
+{% block body_block %}
+
+    <style>
+        @media (min-width:800px){
+            .padding1{
+                padding:2rem;
+            }
+            .padding2{
+                padding:0.1rem;
+            }
+        }
+        .btn_width{
+            width:3rem;
+        }
+        .input_width{
+            width:4rem;
+        }
+    </style>
+  
+  <div class="text-center bg-light text-dark padding1">
+    <h1 class="fw-lighter">Find the perfect Rooms in <span class="fw-bolder">"ABS"</span> Hotel</h1>
+    <small class="padding2 fw-bolder">From cheap hotels to luxury rooms and everything in between</small></div>
+  <div>
+
+
+
+    <div id="my_form" class="container mt-4">
+            
+            <form class="py-3" method="POST" action="{% url 'get_filtered_rooms' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col">
+                        <input id="startDate" type="date" name="startDate" class="form-control text-center" placeholder="Date" value="{{ startDate }}" required>
+                    </div>
+                    <div class="col">
+                        <input id="endDate" type="date" name="endDate" class="form-control text-center"  placeholder="Date" value="{{ endDate }}" required>
+                    </div>
+                    <div class="col">
+                        <select onchange="$('#sbmt_btn').click();" id="roomSelect" name="category_name" class="form-control">
+                            <option value="">Select a Room</option>
+                            {% for cat in categories %}
+                                <option {% if cat.id == category %} selected {% endif %} value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input id="count_button" type="button" class="form-control text-center" value="{% if adult %}{{ adult }}{% else %}1{% endif %} ADULTS {% if child %}{{ child }}{% else %}0{% endif %} CHILDREN" readonly data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <input hidden id="adultCount2" name="adult" type="number" value="{% if adult %}{{ adult }}{% else %}1{% endif %}" readonly>
+                        <input hidden id="childCount2" name="child" type="number" value="{% if child %}{{ child }}{% else %}0{% endif %}" readonly>
+                    </div>
+                </div>
+                <input hidden id="sbmt_btn" type="submit">
+            </form>
+
+            <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD MEMBERS</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="d-flex justify-content-between">
+            <label class="p-2">ADULTS</label>
+            <div class="d-flex">
+                <button onclick="red_adult()" class="btn btn-sm btn-light btn_width border border-secondary">-</button>
+                <input id="adultCount" min="1" max="5" type="number" class="form-control text-center mx-1 input_width text-center" value="{% if adult %}{{ adult }}{% else %}1{% endif %}" readonly>
+                <button onclick="add_adult()" class="btn btn-sm btn-light btn_width border border-secondary">+</button>
+            </div>
+        </div>
+          <div class="d-flex justify-content-between pt-1">
+            <label class="p-2">CHILDREN</label>
+            <div class="d-flex">
+                <button onclick="red_child()" class="btn btn-sm btn-light btn_width border border-secondary">-</button>
+                <input id="childCount" min="0" max="5" type="number" class="form-control text-center mx-1 input_width text-center" value="{% if child %}{{ child }}{% else %}0{% endif %}" readonly>
+                <button onclick="add_child()" class="btn btn-sm btn-light btn_width border border-secondary">+</button>
+            </div>
+        </div>
+    
+        <hr>
+        <div class="d-flex justify-content-between">
+            <p class="text-start ps-2 pb-0 mb-1">Travel with pets ? </p>
+            <input class="form-check-input border border-dark" type="checkbox">
+        </div>
+        <small class='pt-0 ps-2'>Assistance animals aren’t considered pets.</small>
+      </div>
+      <div class="modal-footer">
+        <button onclick="$('#sbmt_btn').click();" type="button" class="btn btn-outline-success w-100" data-bs-dismiss="modal">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal 2-->
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">ADD RSERVATION</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form id="book_reservation" action="{% url 'book_reservation' %}" method="POST">
+                {% csrf_token %}
+                <div class="d-flex justify-content-between">
+                    <label class="p-2">CUSTOMER NAME</label>
+                    <input id="cust_name2" min="1" max="5" type="text" name='cust_name2' class="form-control mx-1 w-50 border-none" value="ash" placeholder="Name" required>
+                </div>
+                <div class="d-flex justify-content-between pt-1">
+                    <label class="p-2">EMAIL ADDRESS</label>
+                    <input id="cust_mail2" min="1" max="5" type="email" name='cust_mail2' class="form-control mx-1 w-50 border-none" value="vu@gmail.com" placeholder="user@gmail.com" required>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label class="p-2">ADULTS</label>
+                    <div class="d-flex">
+                        <button onclick="red_adult()" class="btn btn-sm btn-light btn_width border border-secondary" disabled>-</button>
+                        <input id="adultCount" min="1" max="5" type="number" name='adult2' class="form-control text-center mx-1 input_width text-center" value="{% if adult %}{{ adult }}{% else %}1{% endif %}" readonly>
+                        <button onclick="add_adult()" class="btn btn-sm btn-light btn_width border border-secondary"  disabled>+</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between pt-1">
+                    <label class="p-2">CHILDREN</label>
+                    <div class="d-flex">
+                        <button onclick="red_child()" class="btn btn-sm btn-light btn_width border border-secondary"  disabled>-</button>
+                        <input id="childCount" min="0" max="5" type="number" name="child2" class="form-control text-center mx-1 input_width text-center" value="{% if child %}{{ child }}{% else %}0{% endif %}" readonly>
+                        <button onclick="add_child()" class="btn btn-sm btn-light btn_width border border-secondary"  disabled>+</button>
+                    </div>
+                </div>
+            
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <p class="text-start ps-2 pb-0 mb-1">Travel with pets ? </p>
+                    <input class="form-check-input border border-dark" type="checkbox">
+                </div>
+                <small class='pt-0 ps-2'>Assistance animals aren’t considered pets.</small>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <label class="p-2">START DATE</label>
+                    <input id="startDate1" type="date" name='startdate2' class="form-control mx-1 w-50 border-none" value="" placeholder="Name" readonly>
+                </div>
+                <div class="d-flex justify-content-between pt-1">
+                    <label class="p-2">END DATE</label>
+                    <input id="endDate1" type="date" name='enddate2' class="form-control mx-1 w-50 border-none" value="" placeholder="user@gmail.com" readonly>
+                </div>
+                <div class="d-flex justify-content-between pt-1">
+                    <label class="p-2">TOTAL AMOUNT</label>
+                    <input id="payment" type="number" name='amnt2' class="form-control mx-1 w-50 border-none" value="" placeholder="0.00" readonly>
+                </div>
+                <input hidden type="number" id="roomId">
+                <input hidden id="sbmt_btn2" type="submit">
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button onclick="book_reservation();" type="button" class="btn btn-outline-success w-100" data-bs-dismiss="modal">BOOK NOW</button>
+      </div>
+    </div>
+  </div>
+</div>
+            <div class="row">
+                {% if rooms %}
+
+                    {% for room in rooms %}
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <img src="{% static 'images/room1.jpg' %}" class="card-img-top" alt="Room Image"> <!-- Placeholder image -->
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ room.room_number }}</h5>
+                                    <p class="card-text">Category: {{ room.category.name }}</p>
+                                    <p class="card-text">Base Price: ${{ room.category.base_price }} 
+                                    {% if special_rate.room_category == room.category %} 
+                                    <span class="text-danger">x <span class="fw-bolder">
+                                    {{ special_rate.rate_multiplier }}
+                                    </span>
+                                     = ${{ room.category.base_price|mul:special_rate.rate_multiplier }}
+                                     </span>
+                                      {% else %} 
+                                      <span class="text-success text-decoration-line-through">
+                                      Extra Charges
+                                      </span>
+                                      {% endif %}
+                                      </p>
+                                    <p class="card-text">Availability: {% if room.is_available %}Available{% else %}Not Available{% endif %}</p>
+                                    <button onclick="
+                                        $('#roomId').val({{ room.id }});
+                                    set_payment(
+                                        {% if special_rate.room_category == room.category %}
+                                        {{ room.category.base_price|mul:special_rate.rate_multiplier }}
+                                        {% else %}
+                                        {{ room.category.base_price }}
+                                        {% endif %});
+                                    "
+                                     class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Reserve</button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+    <script>
+        // Set today's date as the value of the date input
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const yyyy = today.getFullYear();
+        const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+        //document.getElementById('startDate').value = formattedDate;
+        document.getElementById('startDate').min = formattedDate;
+        document.getElementById('endDate').min = formattedDate; 
+
+        $(document).ready(function(){
+            $('#startDate').on('change',function(){
+                document.getElementById('endDate').min = $(this).val()
+            })
+        })
+
+        function setvalue(){
+            $('#count_button').val(`${$('#adultCount').val()} ADULTS ${$('#childCount').val()} CHILDREN`)
+            $('#adultCount2').val($('#adultCount').val())
+            $('#childCount2').val($('#childCount').val())
+        }
+
+        function add_adult(){
+            var adult = parseInt($('#adultCount').val());
+            if(adult<5)
+            {
+                $('#adultCount').val(adult+1);
+                setvalue();
+            }
+        }
+        function red_adult(){
+            var adult = parseInt($('#adultCount').val());
+            if(adult>1)
+            {
+                $('#adultCount').val(adult-1);
+            }
+            setvalue()
+        }
+        function add_child(){
+            var adult = parseInt($('#childCount').val());
+            if(adult<8)
+            {
+                $('#childCount').val(adult+1);
+            }
+            setvalue()
+        }
+        function red_child(){
+            var adult = parseInt($('#childCount').val());
+            if(adult>0)
+            {
+                $('#childCount').val(adult-1);
+            }
+            setvalue()
+        }
+
+        function book_reservation() {
+            var cust_name = $('#cust_name2').val();
+            var cust_mail = $('#cust_mail2').val();
+            var adult = $('#adultCount').val();
+            var child = $('#childCount').val();
+            var start_date = $('#startDate').val();
+            var end_date = $('#endDate').val();
+            var payment = $('#payment').val();
+            var room_id = $('#roomId').val();
+
+            $.ajax({
+                url: "{% url 'book_reservation' %}",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    cust_name:cust_name,
+                    cust_mail:cust_mail,
+                    adult:adult,
+                    child:child,
+                    startDate:start_date,
+                    endDate:end_date,
+                    payment:payment,
+                    room_id:room_id,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+
+                success: function(data) {
+                    
+                    alert('Booking Successfull')
+                },
+                error: function(xhr, status, error) {
+                    alert('Booking Successfull')
+                    console.error(xhr.responseText);
+                }
+            })
+        }
+
+        $('#endDate').on('change',function(){
+            $('#sbmt_btn').click();
+        })
+
+        function set_payment(per_day_amount) {
+            var startDate = $('#startDate').val()
+            var endDate = $('#endDate').val()
+            if(startDate!='' && endDate!='')
+            {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const differenceInMilliseconds = end - start;
+                const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+
+                $('#payment').val(parseInt(per_day_amount)*parseInt(differenceInDays))
+
+                $('#startDate1').val(startDate)                
+                $('#endDate1').val(endDate)                
+                
+            }
+        }
+        
+    </script>
+
+{% endblock %}

@@ -1,0 +1,371 @@
+.ts{
+    text-shadow: 2px 2px 2px black;
+}
+.ts_sm_black{
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+.ts_sm_black_btn{
+    text-shadow: 0px 0.5px 0.1px rgb(0, 0, 0);
+}
+.ts_sm{
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.356);
+}
+.ts_sm_dark{
+    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+}
+.ts_sm_count{
+    text-shadow: 0px -2px 5px rgb(2, 0, 147);
+}
+.bs{
+    box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.315);
+}
+.bs_big{
+    box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.281);
+}
+.bs_sm{
+    box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.178);
+}
+.bs_vsm{
+    box-shadow: 0px 0px 2px rgb(0, 0, 0);
+}
+.bs_button{
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.336); 
+}
+.bs_sidebar{
+    box-shadow: 0 0 3px gray;   
+}
+.bs_big_dark{
+    box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.651);
+}
+.bs_big_inner{
+    box-shadow: inset 5px 5px 10px 10px rgba(0, 0, 0, 0.137);
+}
+.bs_inner_signup{
+    box-shadow: inset 10px 10px 100px 100px rgba(0, 0, 0, 0.068);
+}
+.text_hover_light:hover{
+    color: white;
+    text-shadow: 1px 1px 0px black;
+    transition: all 0.2s linear;
+}
+
+.text_hover_light1{
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 0px black;
+}
+.text_hover_light1:hover{
+    color: rgb(255, 0, 0);
+    text-shadow: 1px 1px 0px black;
+    transition: all 0.2s linear;
+}
+
+.text_hover_dark:hover{
+    color: rgb(0, 0, 0);
+    text-shadow: 1px 1px 1px rgb(255, 255, 255);
+    transition: all 0.2s linear;
+}
+
+.text_hover_a{
+    color: rgb(0, 2, 128);
+    transition: all 0.1s linear;
+}
+
+.text_hover_a:hover{
+    color: white;
+    transition: all 0.1s linear;
+}
+
+html{
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+.bd{
+    border: 1px solid black;
+}
+.img_jumb:hover img{
+    animation-name: example1;
+    animation-duration: 0.5s;
+    transform: translate(0px ,-10px);
+    box-shadow: 0px 10px 5px 3px rgba(0, 0, 0, 0.479);
+}
+
+.img_jumb img{
+    animation-name: example2;
+    animation-duration: 0.5s;
+    transform: translate(0px ,0px);
+}
+
+#hover_orange{
+    color: #ffffff;
+    transition: color 1s ease;
+}
+
+#hover_orange:hover,#hover_orange:active,#hover_orange.active{
+    color: rgb(255, 255, 255);
+    transition: color 1s ease;
+}
+
+
+@keyframes example1 {
+    0%{
+        transform: translate(0px ,0px);
+    }
+    100%{
+        transform: translate(0px ,-10px);
+    }
+}
+
+@keyframes example2 {
+    100%{
+        transform: translate(0px ,0px);
+    }
+    0%{
+        transform: translate(0px ,-10px);
+    }
+}
+
+.hovereff:hover{
+    animation-name: example02;
+    animation-duration: 0.5s;
+    background-color: rgba(255, 255, 255, 0.100);
+}
+
+.hovereff{
+    animation-name: example03;
+    animation-duration: 0.5s;
+    background-color: rgba(0, 0, 0, 0.05)
+}
+
+@keyframes example02{
+    0%{
+        background-color: rgba(0, 0, 0, 0.05)
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.100);
+    }
+}
+
+
+@keyframes example03{
+    0%{
+        background-color: rgba(255, 255, 255, 0.100);
+    }
+    100%{
+        background-color: rgba(0, 0, 0, 0.05)
+    }
+}
+
+.hovereff2:hover{
+    animation-name: example04;
+    animation-duration: 0.2s;
+    background-color: rgba(255, 255, 255, 0.100);
+}
+
+.hovereff2{
+    animation-name: example05;
+    animation-duration: 0.2s;
+    background-color: rgba(255, 255, 255, 0.331);
+}
+
+@keyframes example04{
+    0%{
+        background-color: rgba(255, 255, 255, 0.331);
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.100);
+    }
+}
+
+
+@keyframes example05{
+    0%{
+        background-color: rgba(255, 255, 255, 0.100);
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.331);
+    }
+}
+
+.hovereff3:hover{
+    animation-name: example06;
+    animation-duration: 0.2s;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.hovereff3{
+    animation-name: example07;
+    animation-duration: 0.2s;
+    background-color: rgba(255, 255, 255, 0.150);
+}
+
+@keyframes example06{
+    0%{
+        background-color: rgba(255, 255, 255, 0.150);
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+}
+
+
+@keyframes example07{
+    0%{
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.150);
+    }
+}
+
+.hovereff4:hover{
+    animation-name: example08;
+    animation-duration: 0.2s;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.hovereff4{
+    animation-name: example09;
+    animation-duration: 0.2s;
+    background-color: rgba(255, 255, 255, 0.150);
+}
+
+@keyframes example08{
+    0%{
+        background-color: rgba(255, 255, 255, 0.150);
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+
+@keyframes example09{
+    0%{
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+    100%{
+        background-color: rgba(255, 255, 255, 0.150);
+    }
+}
+
+.hovereff5:hover{
+    transition: all 0.1s linear;
+    opacity: .75;
+}
+
+.hovereff5{
+    opacity: 1;
+    transition: all 0.1s linear;
+}
+
+
+/* .border_hover:hover{
+    animation-name: example6;
+    animation-duration: 0.5s;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.border_hover{
+    animation-name: example7;
+    animation-duration: 0.5s;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+@keyframes example6{
+    0%{
+        border: 2px solid rgb(255, 255, 255);
+    }
+    100%{
+        border: 2px solid rgb(255, 255, 255);
+    }
+}
+@keyframes example7{
+    0%{
+        border: 2px solid rgb(255, 255, 255);
+    }
+    100%{
+        border: 2px solid rgb(0, 0, 0);
+    }
+} */
+
+/* html{
+    font-size: 16px;
+}
+
+@media screen and(min-width:540px)
+{
+    body{
+        font-size: 0rem;
+    }
+}
+ */
+
+.fw_transition1{
+    font-size: 1rem;
+    font-weight: normal;
+    transition: all 0.2s linear;
+}
+.fw_transition1:hover{
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.2s linear;
+}
+.book_fill{
+    background-color: red;
+    color: white;
+}
+.book_avail{
+    background-color: green;
+    color: white;
+}
+.book_booked{
+    background-color: cyan;
+    color: black;
+}
+.cell_hover{
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 110, 255);
+    transition: all 0.5 linear;
+}
+.cell_hover:hover{
+    color: rgb(255, 255, 255);
+    background-color: rgb(133, 133, 133);
+    transition: all 0.5 linear;
+}
+
+/* change input autocomplete background color start */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329;
+}
+
+/* change input autocomplete background color end */
+
+/* body {
+    font-size: 16px;
+} */
+/* fix for margin butt messes the side navabr */
+/* body {
+    position:relative;
+    overflow-x:hidden;
+  } */
+
+  .clickeff1{
+      opacity: 0.8;
+  }
+  .clickeff1:active{
+    opacity: 1;
+  }
+
+  @media(max-width:600px)
+  {
+      html,body{
+          padding: 0;
+          margin: 0;
+      }
+  }
